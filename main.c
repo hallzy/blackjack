@@ -3,13 +3,15 @@
  *  Author: Steven Hall
  *
  */
-
-// Does not yet cover the case where you get an ace early, then get high cards
-// and decide to change the value of the ace to 1 instead of 11. The value that
-// the Ace is assigned when it is drawn is the value it will carry until the end
-// for now.
-
 // TODO: check that a card is not assigned more than once.
+//       Save in an array that will hold a string. ex "A Diamonds"
+//       This way I can use the already existing const char* arrays to create my
+//       strings
+// TODO: Shorten main
+//       Create more functions to shorten the main function
+// TODO: Split into several files
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -17,6 +19,8 @@
 #define MAX_NUM_CARDS 11
 #define VALUE true
 #define SUIT false
+#define NUM_OF_CARD_VALUES 13
+#define NUM_OF_CARD_SUITS 4
 
 // This array will get populated with the cards that get drawn
 char* usedCards[2*MAX_NUM_CARDS] = {};
@@ -86,11 +90,11 @@ typedef enum bool {false, true} bool;
 int prng(bool value_or_suit) {
   if (value_or_suit == VALUE) {
     // Can be 0 to 12
-    return rand() % 13;
+    return rand() % NUM_OF_CARD_VALUES;
   }
   else {
     // Can be 0 to 3
-    return rand() % 4;
+    return rand() % NUM_OF_CARD_SUITS;
   }
 }
 
