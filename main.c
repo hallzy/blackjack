@@ -1,3 +1,15 @@
+/*
+ *
+ *  Author: Steven Hall
+ *
+ */
+
+// Does not yet cover the case where you get an ace early, then get high cards
+// and decide to change the value of the ace to 1 instead of 11. The value that
+// the Ace is assigned when it is drawn is the value it will carry until the end
+// for now.
+
+// TODO: check that a card is not assigned more than once.
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -5,6 +17,9 @@
 #define MAX_NUM_CARDS 11
 #define VALUE true
 #define SUIT false
+
+// This array will get populated with the cards that get drawn
+char* usedCards[2*MAX_NUM_CARDS] = {};
 
 // The values that can be held by each card
 typedef enum card_value {
@@ -63,30 +78,41 @@ typedef struct player {
   char* owner;
   unsigned int total_cards;
   card_t cards[MAX_NUM_CARDS];
-  unsigned int score;
 } player_t;
 
 // definition of bool type
 typedef enum bool {false, true} bool;
 
+int prng(bool value_or_suit) {
+  if (value_or_suit == VALUE) {
+    // Can be 0 to 12
+    return rand() % 13;
+  }
+  else {
+    // Can be 0 to 3
+    return rand() % 4;
+  }
+}
+
 // Set the value and suit of the card for the specified player
 // Make sure the player does not have more than 11 cards
-//
-// @return: true if total cards is <= 11
-// @return: false if total cards is > 11
-bool set_cards(player_t* player, card_value_t value, card_suit_t suit) {
+void set_cards(player_t* player) {
+  card_value_t value = prng(VALUE);
+  card_suit_t suit = prng(SUIT);
+
   if (player->total_cards < MAX_NUM_CARDS) {
     player->cards[player->total_cards].value = value;
     player->cards[player->total_cards].suit = suit;
     player->total_cards++;
-    return true;
   }
-  return false;
 }
 
 int getScore(player_t* player) {
   int score = 0;
   int i;
+  int num_aces = 0;
+  bool solution_found = false;
+
   for (i = 0; i < player->total_cards; i++) {
     // if the card is less than a jack, add 2 to the value of the card to
     // compensate for the enum
@@ -99,13 +125,23 @@ int getScore(player_t* player) {
     }
     // it is an ace
     else {
-      if (score + 11 > 21) {
-        score += 1;
-      }
-      else {
-        score += 11;
-      }
+      num_aces++;
     }
+  }
+
+  // Find a combination of the aces that will give the highest possible score
+  // without going over 21
+  for (i = 0; i <= num_aces; i++) {
+    if ( ((num_aces-i)*11)+i+score <= 21) {
+      score += ((num_aces-i)*11)+i;
+      solution_found = true;
+    }
+  }
+
+  // If a solution to the above cannot be found, give the aces all values of 1,
+  // and the player has busted.
+  if (!solution_found) {
+    score += num_aces;
   }
   return score;
 }
@@ -123,24 +159,20 @@ void print_card(player_t* player) {
 
 }
 
-int prng(bool value_or_suit) {
-  if (value_or_suit == VALUE) {
-    // Can be 0 to 12
-    return rand() % 13;
-  }
-  else {
-    // Can be 0 to 3
-    return rand() % 4;
-  }
-}
 
 void create(player_t* player) {
   player->total_cards = 0;
 
   // Initialize Cards
-  // TODO: check that a card is not assigned more than once.
-  set_cards(player, prng(VALUE), prng(SUIT));
-  set_cards(player, prng(VALUE), prng(SUIT));
+  set_cards(player);
+  set_cards(player);
+}
+
+void printFinalHands(player_t* player1, player_t* player2) {
+  printf("\n\n\n");
+  print_card(player1);
+  print_card(player2);
+  printf("\n\n");
 }
 
 int main(void) {
@@ -164,19 +196,37 @@ int main(void) {
     printf("\n");
 
     if (choice == 'h' || choice == 'H') {
-      set_cards(player, prng(VALUE), prng(SUIT));
+      set_cards(player);
       print_card(player);
+
+      if (getScore(player) > 21) {
+        printFinalHands(player, dealer);
+        printf("You Bust!\nDealer Wins!\n");
+        return 0;
+      }
     }
   } while (choice == 'h' || choice == 'H');
 
-  if (getScore(player) > 21) {
-    printf("You Bust!\nDealer Wins!\n");
-    return 0;
-  }
-
-  // TODO
   // Hit for the dealer and get score and compare with player - dealer hits when
   // hand is < 17
+  while (getScore(dealer) < 17) {
+    set_cards(dealer);
+  }
+
+  // Print the final hands and figure out who won.
+  printFinalHands(player, dealer);
+  if (getScore(dealer) > 21) {
+    printf("The dealer bust, so you win!\n");
+  }
+  else if (getScore(dealer) == getScore(player)) {
+    printf("Its a draw.\n");
+  }
+  else if (getScore(dealer) > getScore(player)) {
+    printf("You Lost, %d to %d\n", getScore(player), getScore(dealer));
+  }
+  else {
+    printf("You Won, %d to %d\n", getScore(player), getScore(dealer));
+  }
 
   /* print_card(dealer); */
 
