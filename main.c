@@ -22,6 +22,8 @@
 
 // This array will get populated with the cards that get drawn
 // Initialized to all x's so that they are not null.
+// The first thing that is done with this array is that it is compared, so
+// having null elements will cause a seg fault.
 char* usedCards[2*MAX_NUM_CARDS] = {
   "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x",
   "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"
@@ -111,8 +113,6 @@ void set_cards(player_t* player) {
   card_value_t value;
   card_suit_t suit;
   char* concat = (char *)malloc(11);
-  /* char *value_str; */
-  /* char *suit_str; */
   int i;
   bool isDuplicate;
 
@@ -120,10 +120,8 @@ void set_cards(player_t* player) {
     isDuplicate = false;
     value = prng(VALUE);
     suit = prng(SUIT);
-    /* value = 0; */
-    /* suit = 0; */
-    printf("Debug Log: value = %d, suit = %d\n\n", value, suit);
 
+    // Get the string to search for
     strcpy(concat, (char*)get_string_value(value));
     strcat(concat, " ");
     strcat(concat, (char*)get_string_suit(suit));
