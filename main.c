@@ -3,18 +3,16 @@
  *  Author: Steven Hall
  *
  */
-// TODO: check that a card is not assigned more than once.
-//       Save in an array that will hold a string. ex "A Diamonds"
-//       This way I can use the already existing const char* arrays to create my
-//       strings
 // TODO: Shorten main
 //       Create more functions to shorten the main function
 // TODO: Split into several files
+// TODO: Cleanup the program
 
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #define MAX_NUM_CARDS 11
 #define VALUE true
@@ -23,7 +21,11 @@
 #define NUM_OF_CARD_SUITS 4
 
 // This array will get populated with the cards that get drawn
-char* usedCards[2*MAX_NUM_CARDS] = {};
+// Initialized to all x's so that they are not null.
+char* usedCards[2*MAX_NUM_CARDS] = {
+  "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x",
+  "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"
+};
 
 // The values that can be held by each card
 typedef enum card_value {
@@ -62,12 +64,12 @@ const char* CARD_SUIT[] = {
 };
 
 // Returns the string of the card value for display purposes
-const char* print_value(card_value_t value) {
+const char* get_string_value(card_value_t value) {
   return CARD_VALUE[value];
 }
 
 // Returns the string of the card suit for display purposes
-const char* print_suit(card_suit_t suit) {
+const char* get_string_suit(card_suit_t suit) {
   return CARD_SUIT[suit];
 }
 
@@ -83,6 +85,11 @@ typedef struct player {
   unsigned int total_cards;
   card_t cards[MAX_NUM_CARDS];
 } player_t;
+
+// @return the number of cards that have been drawn
+unsigned int total_cards_drawn(player_t* player1, player_t* player2) {
+  return player1->total_cards + player2->total_cards;
+}
 
 // definition of bool type
 typedef enum bool {false, true} bool;
@@ -101,8 +108,42 @@ int prng(bool value_or_suit) {
 // Set the value and suit of the card for the specified player
 // Make sure the player does not have more than 11 cards
 void set_cards(player_t* player) {
-  card_value_t value = prng(VALUE);
-  card_suit_t suit = prng(SUIT);
+  card_value_t value;
+  card_suit_t suit;
+  char* concat = (char *)malloc(11);
+  /* char *value_str; */
+  /* char *suit_str; */
+  int i;
+  bool isDuplicate;
+
+  do {
+    isDuplicate = false;
+    value = prng(VALUE);
+    suit = prng(SUIT);
+    /* value = 0; */
+    /* suit = 0; */
+    printf("Debug Log: value = %d, suit = %d\n\n", value, suit);
+
+    strcpy(concat, (char*)get_string_value(value));
+    strcat(concat, " ");
+    strcat(concat, (char*)get_string_suit(suit));
+
+    for (i = 0; i < 2*MAX_NUM_CARDS; i++) {
+      // if the current index has not been filled
+      // fill it with concat
+      if (strcmp(usedCards[i], "x") == 0) {
+        // add concat to used cards
+        usedCards[i] = concat;
+        break;
+      }
+      // if the new card is the same as a card that is already drawn
+      // Set a flag and break out of the for loop
+      if (strcmp(concat, usedCards[i]) == 0) {
+          isDuplicate = true;
+          break;
+      }
+    }
+  } while (isDuplicate);
 
   if (player->total_cards < MAX_NUM_CARDS) {
     player->cards[player->total_cards].value = value;
@@ -156,7 +197,7 @@ void print_card(player_t* player) {
   printf("%s:\n============\n", player->owner);
 
   for (i = 0; i < player->total_cards; i++) {
-    printf("%s of %s\n", print_value(player->cards[i].value), print_suit(player->cards[i].suit));
+    printf("%s of %s\n", get_string_value(player->cards[i].value), get_string_suit(player->cards[i].suit));
   }
 
   printf("the Score is: %d\n", getScore(player));
@@ -232,7 +273,7 @@ int main(void) {
     printf("You Won, %d to %d\n", getScore(player), getScore(dealer));
   }
 
-  /* print_card(dealer); */
-
+  free(player);
+  free(dealer);
   return 0;
 }
