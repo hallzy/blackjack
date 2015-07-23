@@ -10,7 +10,7 @@
 // Initialized to all x's so that they are not null.
 // The first thing that is done with this array is that it is compared, so
 // having null elements will cause a seg fault.
-char* usedCards[2*MAX_NUM_CARDS] = {
+static char* usedCards[2*MAX_NUM_CARDS] = {
   "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x",
   "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"
 };
@@ -18,7 +18,7 @@ char* usedCards[2*MAX_NUM_CARDS] = {
 // The corresponding string to display for each of the above values
 // This is used in conjunction with the values enum to easily print card values
 // to the user.
-const char* CARD_VALUE[] = {
+static const char* CARD_VALUE[] = {
   "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"
 };
 
@@ -26,7 +26,7 @@ const char* CARD_VALUE[] = {
 // The corresponding string to display for each of the above suits
 // This is used in conjunction with the suits enum to easily print card suits
 // to the user.
-const char* CARD_SUIT[] = {
+static const char* CARD_SUIT[] = {
   "Hearts", "Diamonds", "Clubs", "Spades"
 };
 
@@ -43,10 +43,6 @@ const char* get_string_suit(card_suit_t suit) {
   return CARD_SUIT[suit];
 }
 
-// @return the number of cards that have been drawn total
-unsigned int total_cards_drawn(player_t* player1, player_t* player2) {
-  return player1->total_cards + player2->total_cards;
-}
 
 
 // This is equivalent to giving the player a card.
