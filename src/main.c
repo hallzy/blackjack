@@ -21,16 +21,12 @@ int main(void) {
 
   // Initialize
   // Give dealer their 2 cards
-  create(dealer);
-  dealer->owner = "Dealer";
-
+  create(dealer, "Dealer");
   // Give player their 2 cards
-  create(player);
-  player->owner = "Player";
+  create(player, "Player");
 
   // Allow the player to hit or stand as he chooses
   playPlayersTurn(player);
-
   // Now it is the dealers turn
   playDealersTurn(dealer);
 

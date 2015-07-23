@@ -16,12 +16,16 @@ char* usedCards[2*MAX_NUM_CARDS] = {
 };
 
 // The corresponding string to display for each of the above values
+// This is used in conjunction with the values enum to easily print card values
+// to the user.
 const char* CARD_VALUE[] = {
   "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"
 };
 
 
 // The corresponding string to display for each of the above suits
+// This is used in conjunction with the suits enum to easily print card suits
+// to the user.
 const char* CARD_SUIT[] = {
   "Hearts", "Diamonds", "Clubs", "Spades"
 };
@@ -39,19 +43,23 @@ const char* get_string_suit(card_suit_t suit) {
   return CARD_SUIT[suit];
 }
 
-// @return the number of cards that have been drawn
+// @return the number of cards that have been drawn total
 unsigned int total_cards_drawn(player_t* player1, player_t* player2) {
   return player1->total_cards + player2->total_cards;
 }
 
 
-// Set the value and suit of the card for the specified player
-// Make sure the player does not have more than 11 cards
+// This is equivalent to giving the player a card.
+// It also checks that the card that has been randomly generated has not been
+// given out yet, and if it has, it generates a new card.
 void set_cards(player_t* player) {
   card_value_t value;
   card_suit_t suit;
+  // This will be used to hold the string of the card name in order to check if
+  // it has already been used.
   char* concat = (char *)malloc(11);
   int i;
+  // If the generated card has already been used this will be set to true
   bool isDuplicate;
 
   do {
@@ -67,6 +75,7 @@ void set_cards(player_t* player) {
     for (i = 0; i < 2*MAX_NUM_CARDS; i++) {
       // if the current index has not been filled
       // fill it with concat
+      // "x" is the default value for every element of this array
       if (strcmp(usedCards[i], "x") == 0) {
         // add concat to used cards
         usedCards[i] = concat;
@@ -79,6 +88,7 @@ void set_cards(player_t* player) {
           break;
       }
     }
+    // Do not leave this loop until we find a unique card
   } while (isDuplicate);
 
   if (player->total_cards < MAX_NUM_CARDS) {
@@ -88,8 +98,9 @@ void set_cards(player_t* player) {
   }
 }
 
-void create(player_t* player) {
+void create(player_t* player, char* name) {
   player->total_cards = 0;
+  player->owner = name;
 
   // Initialize Cards
   set_cards(player);
