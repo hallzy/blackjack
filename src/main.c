@@ -3,8 +3,6 @@
  *  Author: Steven Hall
  *
  */
-// TODO: Cleanup the program
-
 
 #include <stdlib.h>
 #include <time.h>
