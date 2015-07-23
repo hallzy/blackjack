@@ -8,7 +8,6 @@
 #include <time.h>
 
 #include "typedefs.h"
-#include "prints.h"
 #include "gameplay.h"
 #include "card_manip.h"
 
@@ -21,16 +20,18 @@ int main(void) {
   srand(time(NULL));
 
   // Initialize
+  // Give dealer their 2 cards
   create(dealer);
   dealer->owner = "Dealer";
 
+  // Give player their 2 cards
   create(player);
   player->owner = "Player";
 
-  print_card(player);
-
+  // Allow the player to hit or stand as he chooses
   playPlayersTurn(player);
 
+  // Now it is the dealers turn
   playDealersTurn(dealer);
 
   determineWinner(player, dealer);

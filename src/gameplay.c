@@ -5,10 +5,10 @@
 #include "scoring.h"
 #include "gameplay.h"
 
-// @return 0 if player bust
-// @return 1 if otherwise
 void playPlayersTurn(player_t* player) {
   char choice;
+  // Show the players card
+  print_card(player);
   do {
     printf("\n(h)it or (s)tay? ");
     // Note the space before %c, which consumes the newline character after
@@ -16,14 +16,19 @@ void playPlayersTurn(player_t* player) {
     scanf(" %c", &choice);
     printf("\n");
 
+    // If player hits, give them a new card and show the players current hand.
     if (choice == 'h' || choice == 'H') {
       set_cards(player);
       print_card(player);
 
+      // After a hit, if the player has more than 21 then exit because they
+      // lost.
       if (getScore(player) > 21) {
         return;
       }
     }
+    // if they hit, loop and do it again to see of they want to hit or stay
+    // again.
   } while (choice == 'h' || choice == 'H');
 }
 
