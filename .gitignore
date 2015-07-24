@@ -1,1 +1,6 @@
 blackjack
+
+*.gcda
+*.gcno
+*.info
+*.c.g*
