@@ -1,7 +1,7 @@
 #include <stdlib.h> // for rand
 
-#include "prng.h"
 #include "definitions.h"
+#include "prng.h"
 
 int prng(bool value_or_suit) {
   // Will generate a random card value

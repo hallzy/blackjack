@@ -7,9 +7,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "typedefs.h"
-#include "gameplay.h"
 #include "card_manip.h"
+#include "gameplay.h"
+#include "scoring.h"
+#include "typedefs.h"
 
 
 
@@ -27,8 +28,12 @@ int main(void) {
 
   // Allow the player to hit or stand as he chooses
   playPlayersTurn(player);
-  // Now it is the dealers turn
-  playDealersTurn(dealer);
+
+  // Dealer only plays if player has not bust.
+  if (getScore(player) <= 21) {
+    // Now it is the dealers turn
+    playDealersTurn(dealer);
+  }
 
   determineWinner(player, dealer);
 

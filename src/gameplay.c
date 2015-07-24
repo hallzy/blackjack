@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 #include "card_manip.h"
+#include "gameplay.h"
 #include "prints.h"
 #include "scoring.h"
-#include "gameplay.h"
 
 void playPlayersTurn(player_t* player) {
   char choice;

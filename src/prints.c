@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "prints.h"
 #include "card_manip.h"
+#include "prints.h"
 #include "scoring.h"
 
 void print_card(player_t* player) {

@@ -2,8 +2,8 @@
 #include <string.h>
 
 #include "card_manip.h"
-#include "prng.h"
 #include "definitions.h"
+#include "prng.h"
 
 
 // This array will get populated with the cards that get drawn
