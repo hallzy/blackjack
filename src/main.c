@@ -37,7 +37,9 @@ int main(void) {
 
   determineWinner(player, dealer);
 
-  free(player);
   free(dealer);
+  free(player);
+  dealer = NULL;
+  player = NULL;
   return 0;
 }

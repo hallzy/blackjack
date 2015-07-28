@@ -9,7 +9,7 @@ void print_card(player_t* player) {
   printf("%s:\n============\n", player->owner);
 
   for (i = 0; i < player->total_cards; i++) {
-    printf("%s of %s\n", get_string_value(player->cards[i].value), get_string_suit(player->cards[i].suit));
+    printf("%s of %s\n", get_string_for_print_value(player->cards[i].value), get_string_for_print_suit(player->cards[i].suit));
   }
 
   printf("the Score is: %d\n", getScore(player));
