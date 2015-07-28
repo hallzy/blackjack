@@ -92,6 +92,7 @@ void set_cards(player_t* player) {
     player->cards[player->total_cards].suit = suit;
     player->total_cards++;
   }
+  free(concat);
 }
 
 void create(player_t* player, char* name) {
