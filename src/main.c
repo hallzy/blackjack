@@ -35,7 +35,7 @@ int main(void) {
     playDealersTurn(dealer);
   }
 
-  determineWinner(player, dealer);
+  determineWinnerBetween(player, dealer);
 
   free(dealer);
   free(player);

@@ -42,22 +42,45 @@ void playDealersTurn(player_t* dealer) {
 
 }
 
-void determineWinner(player_t* player, player_t* dealer) {
+bool player_busts(player_t* player) {
+  return getScore(player) > 21;
+}
+
+bool dealer_busts(player_t* dealer) {
+  return player_busts(dealer);
+}
+
+bool isDraw(player_t* player, player_t* dealer) {
+  return getScore(dealer) == getScore(player);
+}
+
+bool dealerWins(player_t* player, player_t* dealer) {
+  return getScore(dealer) > getScore(player);
+}
+
+bool playerWins(player_t* player, player_t* dealer) {
+  return getScore(dealer) < getScore(player);
+}
+
+void determineWinnerBetween(player_t* player, player_t* dealer) {
   // Print the final hands and figure out who won.
   printFinalHands(player, dealer);
-  if (getScore(player) > 21) {
+  if (player_busts(player)) {
     printf("You Bust!\nDealer Wins!\n");
   }
-  else if (getScore(dealer) > 21) {
+  else if (dealer_busts(dealer)) {
     printf("The dealer bust, so you win!\n");
   }
-  else if (getScore(dealer) == getScore(player)) {
+  else if (isDraw(player, dealer)) {
     printf("Its a draw.\n");
   }
-  else if (getScore(dealer) > getScore(player)) {
+  else if (dealerWins(player, dealer)) {
     printf("You Lost, %d to %d\n", getScore(player), getScore(dealer));
   }
-  else {
+  else if (playerWins(player, dealer)) {
     printf("You Won, %d to %d\n", getScore(player), getScore(dealer));
+  }
+  else {
+    printf("Error. We should never get here\n");
   }
 }
