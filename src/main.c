@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "card_manip.h"
+#include "initialization.h"
 #include "gameplay.h"
 #include "scoring.h"
 #include "typedefs.h"
@@ -15,31 +15,25 @@
 
 
 int main(void) {
-  player_t* dealer = malloc(sizeof(player_t));
-  player_t* player = malloc(sizeof(player_t));
-
   srand(time(NULL));
 
   // Initialize
   // Give dealer their 2 cards
-  initialize_dealer(dealer);
+  initialize_dealer();
   // Give player their 2 cards
-  initialize_player(player);
+  initialize_player();
 
   // Allow the player to hit or stand as he chooses
-  playPlayersTurn(player);
+  playPlayersTurn();
 
   // Dealer only plays if player has not bust.
-  if (getScore(player) <= 21) {
+  if (!player_busts()) {
     // Now it is the dealers turn
-    playDealersTurn(dealer);
+    playDealersTurn();
   }
 
-  determineWinnerBetween(player, dealer);
+  determineWinner();
 
-  free(dealer);
-  free(player);
-  dealer = NULL;
-  player = NULL;
+  freeAll();
   return 0;
 }
