@@ -14,7 +14,7 @@
 // Initialized to all x's so that they are not null.
 // The first thing that is done with this array is that it is compared, so
 // having null elements will cause a seg fault.
-static char* usedCards[2*MAX_NUM_CARDS] = {
+static char* usedCards[] = {
   "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx",
   "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx"
 };

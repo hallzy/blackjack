@@ -9,6 +9,12 @@ make
 builds the program as normal.
 
 ```
+make run-valgrind
+```
+The above must be run after `make`. The above command runs the program using
+valgrind to check for memory leaks.
+
+```
 make lcov
 ```
 builds the program so that lcov can be used (lcov is a coverage program that
