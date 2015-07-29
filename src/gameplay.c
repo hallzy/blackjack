@@ -52,7 +52,7 @@ bool player_busts() {
 }
 
 static bool dealer_busts() {
-  return player_busts(getDealer());
+  return getScore(getDealer()) > 21;
 }
 
 static bool isDraw() {
