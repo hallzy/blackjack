@@ -34,7 +34,7 @@ void playPlayersTurn() {
   } while (choice == 'h' || choice == 'H');
 }
 
-bool dealer_needs_more_points() {
+static bool dealer_needs_more_points() {
   return getScore(getDealer()) < 17;
 }
 
@@ -51,19 +51,19 @@ bool player_busts() {
   return getScore(getPlayer()) > 21;
 }
 
-bool dealer_busts() {
+static bool dealer_busts() {
   return player_busts(getDealer());
 }
 
-bool isDraw() {
+static bool isDraw() {
   return getScore(getDealer()) == getScore(getPlayer());
 }
 
-bool dealerWins() {
+static bool dealerWins() {
   return getScore(getDealer()) > getScore(getPlayer());
 }
 
-bool playerWins() {
+static bool playerWins() {
   return getScore(getDealer()) < getScore(getPlayer());
 }
 
