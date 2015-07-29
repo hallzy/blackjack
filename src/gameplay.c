@@ -20,7 +20,7 @@ void playPlayersTurn() {
 
     // If player hits, give them a new card and show the players current hand.
     if (choice == 'h' || choice == 'H') {
-      set_cards(player);
+      deal_card(player);
       show_hand(player);
 
       // After a hit, if the player has more than 21 then exit because they
@@ -34,12 +34,15 @@ void playPlayersTurn() {
   } while (choice == 'h' || choice == 'H');
 }
 
+bool dealer_needs_more_points() {
+  return getScore(getDealer()) < 17;
+}
 
 void playDealersTurn() {
   // Hit for the dealer and get score and compare with player - dealer hits when
   // hand is < 17
-  while (getScore(getDealer()) < 17) {
-    set_cards(getDealer());
+  while (dealer_needs_more_points()) {
+    deal_card(getDealer());
   }
 
 }

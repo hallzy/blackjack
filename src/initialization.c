@@ -33,8 +33,8 @@ void initialize_helper(player_t* player_arg, char* name) {
   player_arg->owner = name;
 
   // Initialize Cards
-  set_cards(player_arg);
-  set_cards(player_arg);
+  deal_card(player_arg);
+  deal_card(player_arg);
 }
 
 void initialize_player() {

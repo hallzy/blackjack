@@ -81,7 +81,7 @@ const char* get_string_for_print_suit(card_suit_t suit) {
 // This is equivalent to giving the player a card.
 // It also checks that the card that has been randomly generated has not been
 // given out yet, and if it has, it generates a new card.
-void set_cards(player_t* player) {
+void deal_card(player_t* player) {
   card_value_t value;
   card_suit_t suit;
   // This will be used to hold the string of the card name in order to check if
