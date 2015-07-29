@@ -3,6 +3,7 @@
 
 #include "typedefs.h"
 
-int prng(bool);
+int card_value_prng();
+int card_suit_prng();
 
 #endif // PRNG_H

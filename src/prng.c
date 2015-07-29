@@ -3,16 +3,15 @@
 #include "definitions.h"
 #include "prng.h"
 
-int prng(bool value_or_suit) {
+int card_value_prng() {
   // Will generate a random card value
-  if (value_or_suit == VALUE) {
-    // Can be 0 to 12
-    return rand() % NUM_OF_CARD_VALUES;
-  }
+  // Can be 0 to 12
+  return rand() % NUM_OF_CARD_VALUES;
+}
+
+int card_suit_prng() {
   // Will generate a random suit
-  else {
-    // Can be 0 to 3
-    return rand() % NUM_OF_CARD_SUITS;
-  }
+  // Can be 0 to 3
+  return rand() % NUM_OF_CARD_SUITS;
 }
 

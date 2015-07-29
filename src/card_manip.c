@@ -93,8 +93,8 @@ void set_cards(player_t* player) {
 
   do {
     isDuplicate = false;
-    value = prng(VALUE);
-    suit = prng(SUIT);
+    value = card_value_prng();
+    suit = card_suit_prng();
     concat = (char*)malloc(strlen(get_string_value(value))+strlen(get_string_suit(suit))+2);
 
     // Get the string to search for
