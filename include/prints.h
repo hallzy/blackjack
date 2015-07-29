@@ -3,8 +3,8 @@
 
 #include "typedefs.h"
 
-void print_card(player_t*);
+void show_hand(player_t*);
 
-void printFinalHands(player_t*, player_t*);
+void printFinalHands();
 
 #endif // PRINTS_H

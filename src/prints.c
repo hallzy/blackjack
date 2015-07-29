@@ -1,10 +1,12 @@
 #include <stdio.h>
 
 #include "card_manip.h"
+#include "initialization.h"
 #include "prints.h"
 #include "scoring.h"
 
-void print_card(player_t* player) {
+// Prints the players hand
+void show_hand(player_t* player) {
   int i;
   printf("%s:\n============\n", player->owner);
 
@@ -16,10 +18,11 @@ void print_card(player_t* player) {
 
 }
 
-void printFinalHands(player_t* player1, player_t* player2) {
+// Reveals everyones final hand.
+void printFinalHands() {
   printf("\n\n\n");
-  print_card(player1);
-  print_card(player2);
+  show_hand(getPlayer());
+  show_hand(getDealer());
   printf("\n\n");
 }
 

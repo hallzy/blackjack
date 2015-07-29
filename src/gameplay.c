@@ -10,7 +10,7 @@ void playPlayersTurn() {
   player_t* player = getPlayer();
   char choice;
   // Show the players card
-  print_card(player);
+  show_hand(player);
   do {
     printf("\n(h)it or (s)tay? ");
     // Note the space before %c, which consumes the newline character after
@@ -21,7 +21,7 @@ void playPlayersTurn() {
     // If player hits, give them a new card and show the players current hand.
     if (choice == 'h' || choice == 'H') {
       set_cards(player);
-      print_card(player);
+      show_hand(player);
 
       // After a hit, if the player has more than 21 then exit because they
       // lost.
@@ -68,20 +68,20 @@ void determineWinner() {
   player_t* player = getPlayer();
   player_t* dealer = getDealer();
   // Print the final hands and figure out who won.
-  printFinalHands(player, dealer);
-  if (player_busts(player)) {
+  printFinalHands();
+  if (player_busts()) {
     printf("You Bust!\nDealer Wins!\n");
   }
-  else if (dealer_busts(dealer)) {
+  else if (dealer_busts()) {
     printf("The dealer bust, so you win!\n");
   }
-  else if (isDraw(player, dealer)) {
+  else if (isDraw()) {
     printf("Its a draw.\n");
   }
-  else if (dealerWins(player, dealer)) {
+  else if (dealerWins()) {
     printf("You Lost, %d to %d\n", getScore(player), getScore(dealer));
   }
-  else if (playerWins(player, dealer)) {
+  else if (playerWins()) {
     printf("You Won, %d to %d\n", getScore(player), getScore(dealer));
   }
   else {
