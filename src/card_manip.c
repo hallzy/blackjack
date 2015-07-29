@@ -46,7 +46,8 @@ const char* get_string_value(card_value_t value) {
 // it should be displayed is the 10, so check for it, otherwise print the string
 // that already exists.
 const char* get_string_for_print_value(card_value_t value) {
-  if (strcmp(get_string_value(value), "T") == 0) {
+  /* if (strcmp(get_string_value(value), "T") == 0) { */
+  if (value == ten) {
     return "10";
   }
   else {
@@ -64,13 +65,13 @@ const char* get_string_suit(card_suit_t suit) {
 // it should be displayed is the 10, so check for it, otherwise print the string
 // that already exists.
 const char* get_string_for_print_suit(card_suit_t suit) {
-  if (strcmp(get_string_suit(suit), "H") == 0) {
+  if (suit == hearts) {
     return "Hearts";
   }
-  else if (strcmp(get_string_suit(suit), "D") == 0) {
+  else if (suit == diamonds) {
     return "Diamonds";
   }
-  else if (strcmp(get_string_suit(suit), "C") == 0) {
+  else if (suit == clubs) {
     return "Clubs";
   }
   else {
@@ -121,11 +122,10 @@ void deal_card(player_t* player) {
     // Do not leave this loop until we find a unique card
   } while (isDuplicate);
 
-  if (player->total_cards < MAX_NUM_CARDS) {
-    player->cards[player->total_cards].value = value;
-    player->cards[player->total_cards].suit = suit;
-    player->total_cards++;
-  }
+  player->cards[player->total_cards].value = value;
+  player->cards[player->total_cards].suit = suit;
+  player->total_cards++;
+
   free(concat);
 }
 

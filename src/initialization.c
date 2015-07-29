@@ -4,6 +4,7 @@
 #include "card_manip.h"
 
 player_t* getDealer() {
+  // Static so that these initializations hold true across multiple calls
   static bool isDealerInitialized = false;
   static player_t* dealer;
 
@@ -16,6 +17,7 @@ player_t* getDealer() {
 }
 
 player_t* getPlayer() {
+  // Static so that these initializations hold true across multiple calls
   static bool isPlayerInitialized = false;
   static player_t* player;
 
