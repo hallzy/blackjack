@@ -22,9 +22,9 @@ int main(void) {
 
   // Initialize
   // Give dealer their 2 cards
-  create(dealer, "Dealer");
+  initialize_dealer(dealer);
   // Give player their 2 cards
-  create(player, "Player");
+  initialize_player(player);
 
   // Allow the player to hit or stand as he chooses
   playPlayersTurn(player);

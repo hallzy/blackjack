@@ -129,12 +129,20 @@ void set_cards(player_t* player) {
   free(concat);
 }
 
-void create(player_t* player, char* name) {
+void initialize_player(player_t* player) {
   player->total_cards = 0;
-  player->owner = name;
+  player->owner = "Player";
 
   // Initialize Cards
   set_cards(player);
   set_cards(player);
 }
 
+void initialize_dealer(player_t* dealer) {
+  dealer->total_cards = 0;
+  dealer->owner = "Dealer";
+
+  // Initialize Cards
+  set_cards(dealer);
+  set_cards(dealer);
+}
