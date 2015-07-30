@@ -41,6 +41,18 @@ player_t* getPlayer() {
   return player;
 }
 
+char* get_drawn_card_string() {
+  static bool is_card_initialized = false;
+  static char* drawn_card_string;
+
+  if (!is_card_initialized) {
+    drawn_card_string = (char*)malloc(3*sizeof(char));
+    is_card_initialized = true;
+  }
+
+  return drawn_card_string;
+}
+
 void initialize_helper(player_t* player_arg, char* name) {
   /* player_arg = malloc(sizeof(player_t)); */
   player_arg->total_cards = 0;
@@ -62,9 +74,11 @@ void initialize_dealer() {
 void freeAll() {
   player_t* dealer = getDealer();
   player_t* player = getPlayer();
+  char* drawn_card_string = get_drawn_card_string();
 
   free(dealer);
   free(player);
+  free(drawn_card_string);
   dealer = NULL;
   player = NULL;
 }

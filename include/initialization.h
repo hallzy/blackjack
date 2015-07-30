@@ -17,6 +17,7 @@
 
 player_t* getDealer();
 player_t* getPlayer();
+char* get_drawn_card_string();
 void initialize_helper(player_t*, char*);
 void initialize_player();
 void initialize_dealer();
