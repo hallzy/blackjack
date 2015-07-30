@@ -19,20 +19,19 @@
 #include "prng.h"
 
 
-// The first thing that is done with this array is that it is compared, so
 // having null elements will cause a seg fault.
 static char* usedCards[] = {
   "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx",
   "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx"
 };
 
-// This is used to populate the usedCards array
+// Used to populate the usedCards array
 static const char* CARD_VALUE[] = {
   "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"
 };
 
 
-// This is used to populate the usedCards array
+// Used to populate the usedCards array
 static const char* CARD_SUIT[] = {
   "H", "D", "C", "S"
 };
@@ -98,7 +97,6 @@ static void generate_random_card_string(card_value_t value, card_suit_t suit) {
   char* drawn_card_string = get_drawn_card_string();
 
   strcpy(drawn_card_string, (char*)get_string_value(value));
-  strcat(drawn_card_string, " ");
   strcat(drawn_card_string, (char*)get_string_suit(suit));
 }
 

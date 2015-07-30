@@ -46,7 +46,7 @@ char* get_drawn_card_string() {
   static char* drawn_card_string;
 
   if (!is_card_initialized) {
-    drawn_card_string = (char*)malloc(4*sizeof(char));
+    drawn_card_string = (char*)malloc(3*sizeof(char));
     is_card_initialized = true;
   }
 
