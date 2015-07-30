@@ -74,7 +74,7 @@ const char* get_string_for_print_suit(card_suit_t suit) {
 }
 
 
-static bool is_drawn_card_a_duplicate() {
+static bool is_random_card_string_duplicate() {
   int i;
   for (i = 0; i < 2*MAX_NUM_CARDS; i++) {
     if (strcmp(get_drawn_card_string(), usedCards[i]) == 0) {
@@ -94,27 +94,32 @@ static void add_drawn_card_to_used_cards_arr() {
   }
 }
 
+static void generate_random_card_string(card_value_t value, card_suit_t suit) {
+  char* drawn_card_string = get_drawn_card_string();
+
+  strcpy(drawn_card_string, (char*)get_string_value(value));
+  strcat(drawn_card_string, " ");
+  strcat(drawn_card_string, (char*)get_string_suit(suit));
+}
+
+static void give_card_to_player(player_t* player, card_value_t value, card_suit_t suit) {
+  player->cards[player->total_cards].value = value;
+  player->cards[player->total_cards].suit = suit;
+  player->total_cards++;
+}
 
 void deal_card(player_t* player) {
   card_value_t value;
   card_suit_t suit;
-  char* drawn_card_string = get_drawn_card_string();
 
   do {
     value = card_value_prng();
     suit = card_suit_prng();
-
-    strcpy(drawn_card_string, (char*)get_string_value(value));
-    strcat(drawn_card_string, " ");
-    strcat(drawn_card_string, (char*)get_string_suit(suit));
-
-  } while (is_drawn_card_a_duplicate());
+    generate_random_card_string(value, suit);
+  } while (is_random_card_string_duplicate());
 
   add_drawn_card_to_used_cards_arr();
 
-
-  player->cards[player->total_cards].value = value;
-  player->cards[player->total_cards].suit = suit;
-  player->total_cards++;
+  give_card_to_player(player, value, suit);
 }
 
