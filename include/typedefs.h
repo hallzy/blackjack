@@ -55,7 +55,7 @@ typedef struct card_s {
 typedef struct player {
   char* owner;
   unsigned int total_cards;
-  card_t cards[MAX_NUM_CARDS];
+  card_t cards[MAX_NUM_CARDS_PER_PERSON];
 } player_t;
 
 #endif // TYPEDEFS_H

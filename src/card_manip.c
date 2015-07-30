@@ -75,7 +75,7 @@ const char* get_string_for_print_suit(card_suit_t suit) {
 
 static bool is_random_card_string_duplicate() {
   int i;
-  for (i = 0; i < 2*MAX_NUM_CARDS; i++) {
+  for (i = 0; i < 2*MAX_NUM_CARDS_PER_PERSON; i++) {
     if (strcmp(get_drawn_card_string(), usedCards[i]) == 0) {
       return true;
     }
@@ -85,7 +85,7 @@ static bool is_random_card_string_duplicate() {
 
 static void add_drawn_card_to_used_cards_arr() {
   int i;
-  for (i = 0; i < 2*MAX_NUM_CARDS; i++) {
+  for (i = 0; i < 2*MAX_NUM_CARDS_PER_PERSON; i++) {
     if (strcmp(usedCards[i], "x") == 0) {
       usedCards[i] = get_drawn_card_string();
       return;
