@@ -25,15 +25,10 @@ static char* usedCards[] = {
   "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx"
 };
 
+
 // Used to populate the usedCards array
 static const char* CARD_VALUE[] = {
   "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"
-};
-
-
-// Used to populate the usedCards array
-static const char* CARD_SUIT[] = {
-  "H", "D", "C", "S"
 };
 
 
@@ -42,6 +37,7 @@ const char* get_string_value(card_value_t value) {
 }
 
 
+// Returns a more readable representation of the card values
 const char* get_string_for_print_value(card_value_t value) {
   if (value == ten) {
     return "10";
@@ -52,11 +48,18 @@ const char* get_string_for_print_value(card_value_t value) {
 }
 
 
+// Used to populate the usedCards array
+static const char* CARD_SUIT[] = {
+  "H", "D", "C", "S"
+};
+
+
 const char* get_string_suit(card_suit_t suit) {
   return CARD_SUIT[suit];
 }
 
 
+// Returns a more readable representation of the card suits
 const char* get_string_for_print_suit(card_suit_t suit) {
   if (suit == hearts) {
     return "Hearts";
@@ -75,6 +78,7 @@ const char* get_string_for_print_suit(card_suit_t suit) {
 
 static bool is_random_card_string_duplicate() {
   int i;
+  // Does card exist in usedCards array
   for (i = 0; i < 2*MAX_NUM_CARDS_PER_PERSON; i++) {
     if (strcmp(get_drawn_card_string(), usedCards[i]) == 0) {
       return true;
@@ -82,6 +86,7 @@ static bool is_random_card_string_duplicate() {
   }
   return false;
 }
+
 
 static void add_drawn_card_to_used_cards_arr() {
   int i;
@@ -107,8 +112,8 @@ static void give_card_to_player(player_t* player, card_value_t value, card_suit_
 }
 
 void deal_card(player_t* player) {
-  card_value_t value;
-  card_suit_t suit;
+  card_value_t   value;
+  card_suit_t    suit;
 
   do {
     value = card_value_prng();

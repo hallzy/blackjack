@@ -25,4 +25,10 @@
 #define NUM_OF_CARD_VALUES 13
 #define NUM_OF_CARD_SUITS 4
 
+#define VALUE_OF_FACE_CARDS 10
+
+#define HIGH_ACE_SCORE 11
+#define LOW_ACE_SCORE 1
+
+#define ENUM_OFFSET 2
 #endif // DEFINITIONS_H
