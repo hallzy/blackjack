@@ -46,7 +46,7 @@ char* get_drawn_card_string() {
   static char* drawn_card_string;
 
   if (!is_card_initialized) {
-    drawn_card_string = (char*)malloc(3*sizeof(char));
+    drawn_card_string = (char*)malloc(4*sizeof(char));
     is_card_initialized = true;
   }
 
@@ -77,8 +77,11 @@ void freeAll() {
   char* drawn_card_string = get_drawn_card_string();
 
   free(dealer);
-  free(player);
-  free(drawn_card_string);
   dealer = NULL;
+
+  free(player);
   player = NULL;
+
+  free(drawn_card_string);
+  drawn_card_string = NULL;
 }
