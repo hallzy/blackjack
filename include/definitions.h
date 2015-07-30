@@ -16,6 +16,7 @@
 // No one in blackjack can exceed 11 cards because it is impossible to stay
 // below 21 with more than 11 cards
 #define MAX_NUM_CARDS_PER_PERSON 11
+#define NUM_USED_CARD_CHARS 2
 
 // These are used for prng to see if it should be generating a random number for
 // a card value or suit

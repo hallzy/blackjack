@@ -20,7 +20,7 @@
 
 
 // having null elements will cause a seg fault.
-static char* usedCards[] = {
+static char usedCards[2*MAX_NUM_CARDS_PER_PERSON][NUM_USED_CARD_CHARS] = {
   "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx",
   "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx", "xx"
 };
@@ -89,10 +89,11 @@ static bool is_random_card_string_duplicate() {
 
 
 static void add_drawn_card_to_used_cards_arr() {
+  char* drawn_card_string = get_drawn_card_string();
   int i;
   for (i = 0; i < 2*MAX_NUM_CARDS_PER_PERSON; i++) {
-    if (strcmp(usedCards[i], "x") == 0) {
-      usedCards[i] = get_drawn_card_string();
+    if (usedCards[i][0] == 'x') {
+      strcpy(usedCards[i], drawn_card_string);
       return;
     }
   }
