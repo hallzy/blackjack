@@ -127,3 +127,13 @@ void deal_card(player_t* player) {
   give_card_to_player(player, value, suit);
 }
 
+#ifdef TESTING
+bool is_deal_card_duplicate_test(card_value_t value, card_suit_t suit) {
+  bool rc;
+  generate_random_card_string(value, suit);
+  rc = is_random_card_string_duplicate();
+  add_drawn_card_to_used_cards_arr();
+  return rc;
+}
+#endif // TESTING
+

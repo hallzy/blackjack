@@ -72,16 +72,17 @@ void initialize_dealer() {
 
 
 void freeAll() {
-  player_t*  dealer             = getDealer();
-  player_t*  player             = getPlayer();
-  char*      drawn_card_string  = get_drawn_card_string();
-
+#ifndef TESTING
+  player_t* dealer = getDealer();
   free(dealer);
   dealer = NULL;
 
+  player_t* player = getPlayer();
   free(player);
   player = NULL;
+#endif // TESTING
 
+  char* drawn_card_string = get_drawn_card_string();
   free(drawn_card_string);
   drawn_card_string = NULL;
 }

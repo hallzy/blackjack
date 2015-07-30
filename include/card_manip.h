@@ -16,10 +16,14 @@
 #include "typedefs.h"
 
 
-void deal_card(player_t*);
 const char* get_string_value(card_value_t);
 const char* get_string_suit(card_suit_t);
 const char* get_string_for_print_value(card_value_t);
 const char* get_string_for_print_suit(card_suit_t);
+void deal_card(player_t*);
+
+#ifdef TESTING
+bool is_deal_card_duplicate_test(card_value_t, card_suit_t);
+#endif //TESTING
 
 #endif // CARD_MANIP_H
