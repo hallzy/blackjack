@@ -4,3 +4,6 @@ blackjack
 *.gcno
 *.info
 *.c.g*
+build/*
+shellcheck.log
+cscope.out
